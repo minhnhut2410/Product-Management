@@ -1,0 +1,46 @@
+const express = require("express");
+require("dotenv").config();
+const methodOverride = require("method-override");
+const flash = require("express-flash");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+
+const database = require("./config/database")
+const route = require("./routes/client/index.route");
+const systemConfig = require("./config/system");
+//admin
+const routeAdmin = require("./routes/admin/index.route"); 
+database.connect();
+
+const app = express();
+const port = process.env.PORT;
+
+
+//set up views
+app.set("views", "./views");
+app.set("view engine", "pug");
+
+//set up a variable Admin
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
+
+//set up method for patch
+app.use(methodOverride("_method")); 
+
+//set up body-parser
+app.use(bodyParser.urlencoded({extended: false}))
+
+//Flash
+app.use(cookieParser("domaymoduoc"));
+app.use(session({cookie: {maxAge: 60000}}));
+app.use(flash());
+//End Flash
+
+app.use(express.static("public"));
+
+//Routes
+route(app);
+routeAdmin(app);
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
+});

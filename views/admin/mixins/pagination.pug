@@ -1,0 +1,35 @@
+mixin pagination(objectPagination)  
+    nav
+        ul(class="pagination")
+            if(objectPagination.currentPage > 1)
+                li(class="page-item")
+                button(
+                    class="page-link"
+                    button-pagination = 1
+                    ) First Page
+            if(objectPagination.currentPage > 1)
+                li(class="page-item")
+                button(
+                    class="page-link"
+                    button-pagination = objectPagination.currentPage - 1
+                    ) Previous Page
+
+            - for(var i = objectPagination.currentPage - 2; i <= objectPagination.currentPage + 2 ; i++)
+                if(i >= 1 && i <= objectPagination.totalPage)
+                    li(class=`page-item ${objectPagination.currentPage == i ? "active" : ""}`)
+                        button(
+                            class="page-link"
+                            button-pagination = i
+                        ) #{i}  
+            if(objectPagination.currentPage < objectPagination.totalPage)
+                li(class="page-item")
+                    button(
+                        class="page-link"
+                        button-pagination = objectPagination.currentPage + 1
+                        ) Next Page
+            if(objectPagination.currentPage <  objectPagination.totalPage)
+                li(class="page-item")
+                button(
+                    class="page-link"
+                    button-pagination = objectPagination.totalPage
+                    ) Last Page
