@@ -1,0 +1,32 @@
+extends ../../layout/default.pug
+block main
+    .card.mb-3(style="max-width: 400px; border: 2px solid #f0f0f0; box-shadow: 0 4px 8px rgba(0,0,0,0.1);")
+        .card-img-wrapper(style="height: 200px; overflow: hidden; display: flex; justify-content: center; align-items: center; background-color: #f8f9fa;")
+            img(src=product.thumbnail alt=product.title style="max-height: 100%; max-width: 100%; object-fit: contain;")
+        .card-body
+            h5.card-title.text-primary= product.title
+            p.card-text.text-secondary= product.description
+            ul.list-group.list-group-flush
+                li.list-group-item
+                    strong Price: 
+                    span.text-success $#{product.price}
+                li.list-group-item
+                    strong Discount: 
+                    span.text-warning #{product.discountPercentage}%
+                li.list-group-item
+                    strong Stock: 
+                    span.text-info #{product.stock}
+                li.list-group-item
+                    strong Position: 
+                    span.text-muted #{product.position}
+                li.list-group-item
+                    strong Status: 
+                    if product.status == 'active'
+                        span.badge.bg-success Active
+                    else
+                        span.badge.bg-danger Inactive
+        .card-footer.d-flex.justify-content-between.align-items-center
+            if(product.updatedAt)
+                small.text-muted Updated: #{new Date(product.updatedAt).toLocaleString()}
+            .btn-group
+                a.btn.btn-warning.btn-sm(href=`${prefixAdmin}/products/edit/${product.id}`) Edit
