@@ -209,4 +209,4 @@ module.exports.detail = async(req, res) => {
         req.flash("error", "Can not update the product. Please try again");
         res.redirect(`${systemConfig.prefixAdmin}/products`);
     }
-}
+} 
