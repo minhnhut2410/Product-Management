@@ -18,7 +18,7 @@ const port = process.env.PORT;
 
 
 //set up views
-app.set("views", "./views");
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 //set up a variable Admin
@@ -36,7 +36,7 @@ app.use(session({cookie: {maxAge: 60000}}));
 app.use(flash());
 //End Flash
 
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 
 //Routes
 route(app);
