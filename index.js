@@ -1,46 +1,60 @@
 const express = require("express");
-require("dotenv").config();
 const methodOverride = require("method-override");
 const flash = require("express-flash");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
-const database = require("./config/database")
+const mongoose = require("mongoose"); // directly use mongoose
 const route = require("./routes/client/index.route");
+const routeAdmin = require("./routes/admin/index.route");
 const systemConfig = require("./config/system");
-//admin
-const routeAdmin = require("./routes/admin/index.route"); 
-database.connect();
 
 const app = express();
-const port = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
+// Connect to MongoDB Atlas
+async function connectDatabase() {
+    try {
+        await mongoose.connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log("MongoDB connected successfully!");
+    } catch (err) {
+        console.error("MongoDB connection error:", err);
+        process.exit(1); // stop the app if DB connection fails
+    }
+}
 
-//set up views
+// Set up views
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
-//set up a variable Admin
+// Admin prefix
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
-//set up method for patch
-app.use(methodOverride("_method")); 
+// Method override
+app.use(methodOverride("_method"));
 
-//set up body-parser
-app.use(bodyParser.urlencoded({extended: false}))
+// Body parser
+app.use(bodyParser.urlencoded({ extended: false }));
 
-//Flash
+// Flash messages
 app.use(cookieParser("domaymoduoc"));
-app.use(session({cookie: {maxAge: 60000}}));
+app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
-//End Flash
 
+// Static files
 app.use(express.static(`${__dirname}/public`));
 
-//Routes
+// Routes
 route(app);
 routeAdmin(app);
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
+
+// Start server only after DB connects
+connectDatabase().then(() => {
+    app.listen(PORT, () => {
+        console.log(`App listening on port ${PORT}`);
+    });
 });
