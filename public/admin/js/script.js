@@ -6,7 +6,6 @@ if (buttonStatus.length > 0) {
         button.addEventListener("click", () => {
             const status = button.getAttribute("button-status");
             if (status) {
-                console.log("hi");
                 url.searchParams.set("status", status);
 
             } else {
@@ -131,7 +130,6 @@ if(showAlert){
     closeAlert.addEventListener("click", () =>{
         showAlert.classList.add("alert-hidden");
     })
-
 }
 //End Short Alert
 
@@ -183,9 +181,7 @@ if(sort){
         const stringSort = `${sortKey}-${sortValue}`;
         const optionSelected = sortSelect.querySelector(`option[value='${stringSort}']`)
         optionSelected.selected = true;
-    }
-
-    
+    }  
 }
 
 //End Sort

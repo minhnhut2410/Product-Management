@@ -53,7 +53,7 @@ module.exports.product = async (req, res) => {
 
 }
 
-//[PATCH] /admin/products/chane-status
+//[PATCH] /admin/products/change-status
 
 module.exports.changeStatus = async (req, res) => {
     const status = req.params.status;

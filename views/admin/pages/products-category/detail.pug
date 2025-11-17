@@ -1,0 +1,40 @@
+extends ../../layout/default.pug
+
+block main
+    h1 Category Detail
+
+    .card
+        .card-header #{category.title}
+        .card-body
+
+            if category.thumbnail
+                img(
+                    src=category.thumbnail
+                    width="150px"
+                    height="auto"
+                )
+
+            p
+                strong Title:
+                |  #{category.title}
+
+            p
+                strong Position:
+                |  #{category.position}
+            p
+                strong Description:
+                |  #{category.description}
+            p
+                strong Status: #{category.status}
+                
+
+            p
+                strong Created At:
+                |  #{category.createdAt}
+
+            p
+                strong Updated At:
+                |  #{category.updatedAt}
+
+    a.btn.btn-secondary(href=`${prefixAdmin}/products-category`)
+        | Back

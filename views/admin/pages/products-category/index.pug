@@ -1,0 +1,53 @@
+extends ../../layout/default.pug
+include ../../mixins/filterStatus.pug
+include ../../mixins/search.pug
+include ../../mixins/sortCategory.pug
+include ../../mixins/table-tree.pug
+
+
+block main
+    
+    h1 List Product 
+    .card.mb-3
+        .card-header Filter and Search
+        .card-body
+            .row
+                .col-auto
+                    +filter-Status(filterStatus)
+                .col-auto
+                    +search(keyword)
+                    
+    .card.mb-3
+        .card-header Filter
+        .card-body
+            .row
+            .col-4
+                +sortCategory()
+    .card.mb-3
+        .card-header Categories
+            .card-body
+                .row 
+                    .col-8 
+                    .col-4 
+                        a(
+                            href=`${prefixAdmin}/products-category/create`
+                            class = "btn btn-outline-success"
+                        ) + New
+            table(
+                class="table table-hover table-sm "
+                checkbox-multi
+            )
+                thead 
+                    tr 
+                        th
+                            input(type="checkbox" name="checkall")
+                        th Numerical order 
+                        th Image 
+                        th Title 
+                        th Position
+                        th Status 
+                        th Action 
+                tbody 
+                    +table-tree(records)
+                    
+    script(src="/admin/js/product-category.js")  

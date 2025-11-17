@@ -1,0 +1,8 @@
+mixin select-tree(records, level = 1)
+    each category in records
+        - const indent = Array(level + 1).join('-- ');
+        option(value=category.id) #{indent}#{category.title}
+        
+        if category.children && category.children.length > 0
+            +select-tree(category.children, level + 1)
+    
