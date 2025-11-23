@@ -28,15 +28,7 @@ block main
                 rows="5"
             )
         div(class="form-group")
-            label(for="parent-id") Parent Category 
-            //- input(
-            //-     type="text"
-            //-     class="form-control"
-            //-     id ="parent-id"
-            //-     name="parent-id"
-            //-     rows="5"
-            //-     required 
-            //- )
+            label(for="parent-id") Parent Category
             select(
                 name="parent_id"
                 id= "parent_id"
@@ -44,7 +36,7 @@ block main
             )
                 option(value="") -- Select Parent Category --
                 if(records)
-                    +select-tree(records)
+                    +select-tree(records,1)
                     
         div(
             class="form-group"

@@ -2,7 +2,6 @@ extends ../../layout/default.pug
 include ../../mixins/select-tree.pug
 block main
     h1 Edit Product Category
-
     .card
         .card-body
             form(
@@ -18,9 +17,16 @@ block main
                         required,
                         value=category.title
                     )
-
-                .form-group
-                    +select-tree(newRecords)
+                div(class="form-group")
+                    label(for="parent-id") Parent Category
+                    select(
+                        name="parent_id"
+                        id= "parent_id"
+                        class="form-control"
+                    )
+                        option(value="") -- Select Parent Category --
+                        if(newRecords)
+                            +select-tree(newRecords,1,category.parent_id)
                 .form-group
                     label(for="position") Position
                     input#position.form-control(

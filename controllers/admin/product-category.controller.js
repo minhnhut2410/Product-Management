@@ -116,14 +116,16 @@ module.exports.detail = async(req, res) => {
 //[GET] /admin/products-category/edit
 module.exports.edit = async(req, res) => {
     try {
-        const find = {
+        const data = {
         deleted: false,
         _id: req.params.id
     };
-    const category = await productCategory.findOne(find);
+    let find = {
+        deleted: false
+    }
+    const category = await productCategory.findOne(data);
     const categories = await productCategory.find(find);
     const newRecords = createTreeHelper(categories);
-
     res.render("admin/pages/products-category/edit", {
         pageTitle : "Edit the product",
         category: category,
