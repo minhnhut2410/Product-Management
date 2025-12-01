@@ -51,4 +51,10 @@ block main
                     else
                         tr
                             td.text-center(colspan="4") No roles found.
-    //- script(src="/admin/js/product-category.js")  
+        form(
+        action=""
+        method ="POST"
+        id="form-delete-item"
+        data-path =`${prefixAdmin}/roles/delete`
+        )     
+    script(src="/admin/js/role.js")  

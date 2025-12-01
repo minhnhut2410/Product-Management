@@ -1,0 +1,29 @@
+extends ../../layout/default.pug
+include ../../mixins/select-tree.pug
+block main
+    h1 Edit Product Category
+    .card
+        .card-body
+            form(
+                action=`${prefixAdmin}/roles/editPatch/${role.id}?_method=PATCH`,
+                method="POST",
+                enctype="multipart/form-data"
+            )
+                .form-group
+                    label(for="title") Title
+                    input#title.form-control(
+                        type="text",
+                        name="title",
+                        required,
+                        value=role.title
+                    )
+                div(class="form-group")
+                    label(for="desc") Description 
+                    textarea(
+                        class="form-control"
+                        id ="desc"
+                        name="description"
+                        rows="5"
+                    ) #{role.description}
+                button.btn.btn-primary(type="submit") Update
+                a.btn.btn-secondary(href=`${prefixAdmin}/roles`) Cancel

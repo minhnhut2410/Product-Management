@@ -1,0 +1,27 @@
+extends ../../layout/default.pug
+
+block main
+    h1 Role Detail
+
+    .card
+        .card-header #{role.title}
+        .card-body
+
+            p
+                strong Title:
+                |  #{role.title}
+
+            p
+                strong Description:
+                |  #{role.description}
+
+            p
+                strong Created At:
+                |  #{role.createdAt}
+
+            p
+                strong Updated At:
+                |  #{role.updatedAt}
+
+    a.btn.btn-secondary(href=`${prefixAdmin}/roles`)
+        | Back
